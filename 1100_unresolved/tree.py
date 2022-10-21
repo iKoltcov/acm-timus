@@ -1,13 +1,22 @@
 from sys import stdin, stdout
+from __future__ import annotations
 
 class Node:
     def __init__(self, id: int = None, value: int = None):
         self.left = None
-        self.ids = []
-        if id != None:
-            self.ids.append(id)
-        self.value = value
         self.right = None
+        self.ids = [id] if id != None else []
+        self.value = value
+        self.height = 1
+
+    @staticmethod
+    def get_height(node: Node) -> int:
+        return node.height if node != None else 0 
+
+    def calculate_height(self) -> int:
+        hl = Node.get_height(self.left)
+        hr = Node.get_height(self.right)
+        self.height = max(hl, hr) + 1
 
     def add_node(self, id: int, value: int):
         if self.value == None:
@@ -61,3 +70,4 @@ if __name__ == '__main__':
             root.add_node(id, value)
 
     root.print_desc()
+ 
