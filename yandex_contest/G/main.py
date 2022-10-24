@@ -1,9 +1,10 @@
 from queue import Queue
+from typing import List
 
 def distance(x1: int, y1: int, x2: int, y2: int) -> float:
     return abs(x1 - x2) + abs(y1 - y2)
 
-def bfs(start, graph):
+def bfs(start: int, end: int, graph: List[List[int]]):
     cost = [-1] * len(graph)
     cost[start] = 0
     queue = Queue()
@@ -16,7 +17,7 @@ def bfs(start, graph):
                 queue.put(w)
                 cost[w] = cost[v] + 1
 
-    return cost
+    return cost[end]
 
 with open('input.txt', 'r') as _input:
     with open('output.txt', 'w+') as _output:
@@ -41,5 +42,5 @@ with open('input.txt', 'r') as _input:
                     paths.append(j)
             graph.append(paths)
 
-        cost = bfs(start, graph)
-        _output.write(f'{cost[end]}')
+        result = bfs(start, end, graph)
+        _output.write(f'{result}')
