@@ -1,0 +1,8 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
+  &lt;Assembly Path="/home/ikoltcov/.nuget/packages/microsoft.aspnetcore.http.abstractions/2.2.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll" /&gt;
+  &lt;Assembly Path="/home/ikoltcov/.nuget/packages/microsoft.aspnetcore.hosting/2.2.7/lib/netstandard2.0/Microsoft.AspNetCore.Hosting.dll" /&gt;
+  &lt;Assembly Path="/home/ikoltcov/.nuget/packages/microsoft.extensions.hosting.abstractions/2.2.0/lib/netstandard2.0/Microsoft.Extensions.Hosting.Abstractions.dll" /&gt;
+  &lt;Assembly Path="/home/ikoltcov/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll" /&gt;
+  &lt;Assembly Path="/home/ikoltcov/.nuget/packages/microsoft.aspnetcore.http/2.2.2/lib/netstandard2.0/Microsoft.AspNetCore.Http.dll" /&gt;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
