@@ -96,7 +96,7 @@ namespace H
             var code = normalized.Substring(2, 3);
             var availableCode = new[] { "982", "986", "912", "934" };
             
-            if (normalized.Length != 12 || availableCode.All(x => x != code))
+            if (normalized.Length != 12 || availableCode.All(x => x != code) || !normalized.StartsWith("+7"))
             {
                 return await Task.FromResult<IActionResult>(
                     Ok(
