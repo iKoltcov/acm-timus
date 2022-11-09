@@ -1,84 +1,59 @@
-from cmath import sqrt
 from queue import Queue
 from sys import stdin, stdout
 from typing import Tuple
 
-def distance(x1, y1, x2, y2) -> float:
-    return sqrt( (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) ).real
-
-default_distance = distance(0, 0, 100, 100)
+diag_distance = 141.4213562373095
 maxint = 2147483647
 
 def packCoordinates(x: int, y: int, n: int) -> int:
     return y * n + x
 
 def unpackCoordinates(i: int, n: int) -> Tuple[int, int]:
-    return (int(i % n), int(i / n))
+    return (i % n, i // n)
 
-def deisktra(graph, start):
+def deisktra(graph, start, end):
     score = [maxint] * len(graph)
-    visited = [0] * len(graph)
+    visited = [False] * len(graph)
     score[start] = 0
     queue = Queue()
     queue.put(start)
 
     while not queue.empty():
         v = queue.get()
-        if visited[v] == 0:
+        if visited[v] == False:
             for i, w in graph[v]:
                 if w != -1:
                     if score[i] > score[v] + w:
                         score[i] = score[v] + w
                     queue.put(i)
-            visited[v] = 1
+            visited[v] = True
 
-    return score
+    return score[end]
 
-# with open('input.txt', 'r') as _input:
-data = stdin.readline().split(' ')
-n = int(data[0]) + 1
-m = int(data[1]) + 1
-k = int(stdin.readline())
+if __name__ == '__main__':
+    (n, m) = map(int, stdin.readline().split(' '))
 
-diagonalable = []
-for i in range(k):
-    data = stdin.readline().split(' ')
-    diagonalable.append( [int(data[0]), int(data[1])] )
+    n += 1
+    m += 1
 
-nodes_len = n * m
-graph = []
+    nodes_len = n * m
+    graph = []
 
-for i in range(nodes_len):
-    adj = []
-    x, y = unpackCoordinates(i, n)
+    for i in range(nodes_len):
+        adj = []
+        x, y = unpackCoordinates(i, n)
+        if x + 1 < n:
+            adj.append( (packCoordinates(x + 1, y, n), 100) )
+        if y + 1 < m:
+            adj.append( (packCoordinates(x, y + 1, n), 100) )
+        graph.append(adj)
 
-    if x + 1 < n:
-        adj.append( (packCoordinates(x + 1, y, n), 100) )
+    k = int(stdin.readline())
+    for i in range(k):
+        (x, y) = map(int, stdin.readline().split(' '))
+        ws = packCoordinates(x - 1, y - 1, n)
+        ne = packCoordinates(x, y, n)
+        graph[ ws ].append( (ne, diag_distance) )
 
-    if y + 1 < m:
-        adj.append( (packCoordinates(x, y + 1, n), 100) )
-
-    if x > 0:
-        adj.append( (packCoordinates(x - 1, y, n), 100) )
-
-    if y > 0:
-        adj.append( (packCoordinates(x, y - 1, n), 100) )
-
-    graph.append(adj)
-
-for cell in diagonalable:
-    x = cell[0] - 1
-    y = cell[1] - 1
-
-    ws = packCoordinates(x, y, n)
-    ne = packCoordinates(x + 1, y + 1, n)
-
-    graph[ ws ].append( (ne, default_distance) )
-    graph[ ne ].append( (ws, default_distance) )
-
-del diagonalable
-
-result = round(deisktra(graph, 0)[packCoordinates(n - 1, m - 1, n)])
-
-# with open('output.txt', 'w+') as _output:
-stdout.write(f'{result}')
+    result = round(deisktra(graph, 0, packCoordinates(n - 1, m - 1, n)))
+    stdout.write(f'{result}')
